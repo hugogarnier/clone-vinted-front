@@ -2,6 +2,7 @@ import axios from "axios";
 
 const Login = async (username, email, password, phone) => {
   try {
+    console.log(username);
     const response = await axios.post(
       `${process.env.REACT_APP_URI}/user/signup`,
       {

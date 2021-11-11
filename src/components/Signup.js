@@ -1,13 +1,19 @@
 import { useState } from "react";
 import { ReactComponent as Close } from "../assets/images/close.svg";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-import Login from "../api/Login";
+// import Login from "../api/Login";
 
 const Signup = ({ setIsModalOpen }) => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState(0);
+  const [phone, setPhone] = useState("");
+  const [errorPassword, setErrorPassword] = useState("");
+  const [imagePreview, setImagePreview] = useState();
+  const [avatar, setAvatar] = useState();
 
   const handleModal = () => {
     setIsModalOpen(false);
@@ -18,11 +24,42 @@ const Signup = ({ setIsModalOpen }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleImagePreview = (e) => {
+    let image_as_base64 = URL.createObjectURL(e.target.files[0]);
+    let image_as_files = e.target.files[0];
+    setImagePreview(image_as_base64);
+    setAvatar(image_as_files);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    Login(username, email, password, phone).then(() => {
-      setIsModalOpen(false);
-    });
+
+    if (password.length > 4) {
+      const bodyForm = new FormData();
+      bodyForm.append("username", username);
+      bodyForm.append("email", email);
+      bodyForm.append("password", password);
+      bodyForm.append("phone", phone);
+      bodyForm.append("picture", avatar);
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_URI}/user/signup`,
+          bodyForm,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        console.log(response.data);
+        setIsModalOpen(false);
+        navigate("/");
+      } catch (error) {
+        console.log(error.message);
+      }
+    } else {
+      setErrorPassword("Le mot de passe doit être supérieur à 4 caractères !");
+    }
   };
 
   return (
@@ -60,8 +97,22 @@ const Signup = ({ setIsModalOpen }) => {
           id='password'
           placeholder='Mot de passe'
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            setErrorPassword("");
+          }}
         />
+        {errorPassword && (
+          <label className='label-error' htmlFor='password'>
+            {errorPassword}
+          </label>
+        )}
+        <div className='image-preview-container'>
+          {imagePreview && (
+            <img className='image-preview' src={imagePreview} alt='preview' />
+          )}
+          <input type='file' onChange={handleImagePreview} />
+        </div>
 
         <div className='check-newsletter'>
           <div>

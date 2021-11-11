@@ -10,14 +10,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_URI}/offers`,
-          {
-            // headers: {
-            //   Authorization: `${process.env.REACT_APP_TOKEN}`,
-            // },
-          }
-        );
+        const response = await axios.get(`${process.env.REACT_APP_URI}/offers`);
         // console.log(response.data);
         setData(response.data);
         setIsLoading(false);
