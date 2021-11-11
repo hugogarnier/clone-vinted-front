@@ -3,9 +3,20 @@ import { Link } from "react-router-dom";
 
 import { ReactComponent as Open } from "../assets/images/open.svg";
 import { ReactComponent as Close } from "../assets/images/close.svg";
+import Signup from "./Signup";
 
 const Header = () => {
   const [isActive, setIsActive] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModal = () => {
+    setIsModalOpen(true);
+    if (document.body.style.overflow !== "hidden") {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "scroll";
+    }
+  };
 
   return (
     <div className='header-container'>
@@ -39,7 +50,7 @@ const Header = () => {
 
           <ul className={isActive ? "nav isActive" : "nav isInactive"}>
             <li>Vends maintenant</li>
-            <li>S'inscrire</li>
+            <li onClick={handleModal}>S'inscrire</li>
             <li>Se connecter</li>
           </ul>
         </div>
@@ -57,6 +68,7 @@ const Header = () => {
       <div className='search small-search'>
         <input type='text' placeholder='Rechercher des articles' />
       </div>
+      {isModalOpen && <Signup setIsModalOpen={setIsModalOpen} />}
     </div>
   );
 };
