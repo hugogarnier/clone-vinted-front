@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 
 import { ReactComponent as Close } from "../assets/images/close.svg";
 
-const Login = ({ setIsModalOpenLogin }) => {
+const Login = ({ setIsModalOpenLogin, setIsToken }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +21,8 @@ const Login = ({ setIsModalOpenLogin }) => {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (password.length > 4) {
       try {
         const response = await axios.post(
@@ -34,7 +35,13 @@ const Login = ({ setIsModalOpenLogin }) => {
         // console.log(response.data.token);
         Cookies.set("token", response.data.token);
         setIsModalOpenLogin(false);
+        if (document.body.style.overflow !== "hidden") {
+          document.body.style.overflow = "hidden";
+        } else {
+          document.body.style.overflow = "scroll";
+        }
         navigate("/");
+        setIsToken(response.data.token);
       } catch (error) {
         console.log(error.message);
         setError("Mauvais mot de passe/email");
@@ -48,7 +55,7 @@ const Login = ({ setIsModalOpenLogin }) => {
     <div className='signup-container'>
       <form onSubmit={handleSubmit}>
         <Close onClick={handleModal} className='form-close' />
-        <h1>S'inscrire</h1>
+        <h1>Se connecter</h1>
 
         <input
           type='email'

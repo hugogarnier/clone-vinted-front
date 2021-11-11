@@ -14,20 +14,21 @@ const Header = () => {
   const [isModalOpenLogin, setIsModalOpenLogin] = useState(false);
   const [isToken, setIsToken] = useState(Cookies.get("token") || "");
 
-  const bodyOverflow = () => {
+  const handleModalSignUp = () => {
+    setIsModalOpenSignUp(true);
     if (document.body.style.overflow !== "hidden") {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "scroll";
     }
   };
-  const handleModalSignUp = () => {
-    bodyOverflow();
-    setIsModalOpenSignUp(true);
-  };
   const handleModalLogin = () => {
-    bodyOverflow();
     setIsModalOpenLogin(true);
+    if (document.body.style.overflow !== "hidden") {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "scroll";
+    }
   };
   const handleDisconnect = () => {
     Cookies.remove("token");
@@ -66,7 +67,9 @@ const Header = () => {
           />
 
           <ul className={isActive ? "nav isActive" : "nav isInactive"}>
-            <li>Vends maintenant</li>
+            <Link to='/sell'>
+              <li>Vends maintenant</li>
+            </Link>
             {isToken ? (
               <li className='disconnect' onClick={handleDisconnect}>
                 Deconnexion
@@ -96,7 +99,12 @@ const Header = () => {
       {isModalOpenSignUp && (
         <Signup setIsModalOpenSignUp={setIsModalOpenSignUp} />
       )}
-      {isModalOpenLogin && <Login setIsModalOpenLogin={setIsModalOpenLogin} />}
+      {isModalOpenLogin && (
+        <Login
+          setIsModalOpenLogin={setIsModalOpenLogin}
+          setIsToken={setIsToken}
+        />
+      )}
     </div>
   );
 };

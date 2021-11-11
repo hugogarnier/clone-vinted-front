@@ -86,7 +86,7 @@ a {
   z-index: 999999;
 }
 
-.nav li {
+.nav li:not(:first-child) {
   width: calc(100% - 40px);
   text-align: center;
   margin: 5px 0;
@@ -97,11 +97,16 @@ a {
   background-color: white;
 }
 
-.nav li:first-child {
+.nav a:first-child {
+  width: calc(100% - 40px);
+  text-align: center;
+  margin: 5px 0;
+  padding: 20px 10px;
+  border-radius: 5px;
   color: white;
   background-color: #3cb1ba;
 }
-.nav li:hover:first-child {
+.nav a:hover:first-child {
   cursor: pointer;
   background-color: #359ca3;
 }
@@ -470,7 +475,7 @@ form input[type="checkbox"] {
     border-bottom: none;
   }
 
-  .nav li {
+  .nav li:not(:first-child) {
     width: 150px;
     text-align: center;
     margin: 0 5px;
@@ -479,6 +484,14 @@ form input[type="checkbox"] {
     color: #3cb1ba;
     border: 1px solid #3cb1ba;
     background-color: white;
+  }
+
+  .nav a:first-child {
+    width: 150px;
+    text-align: center;
+    margin: 0 5px;
+    padding: 11px 5px;
+    border-radius: 5px;
   }
 
   .search input {
