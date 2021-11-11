@@ -1,21 +1,38 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 import { ReactComponent as Open } from "../assets/images/open.svg";
 import { ReactComponent as Close } from "../assets/images/close.svg";
 import Signup from "./Signup";
+import Login from "./Login";
 
 const Header = () => {
+  const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpenSignUp, setIsModalOpenSignUp] = useState(false);
+  const [isModalOpenLogin, setIsModalOpenLogin] = useState(false);
+  const [isToken, setIsToken] = useState(Cookies.get("token") || "");
 
-  const handleModal = () => {
-    setIsModalOpen(true);
+  const bodyOverflow = () => {
     if (document.body.style.overflow !== "hidden") {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "scroll";
     }
+  };
+  const handleModalSignUp = () => {
+    bodyOverflow();
+    setIsModalOpenSignUp(true);
+  };
+  const handleModalLogin = () => {
+    bodyOverflow();
+    setIsModalOpenLogin(true);
+  };
+  const handleDisconnect = () => {
+    Cookies.remove("token");
+    setIsToken("");
+    navigate("/");
   };
 
   return (
@@ -50,8 +67,16 @@ const Header = () => {
 
           <ul className={isActive ? "nav isActive" : "nav isInactive"}>
             <li>Vends maintenant</li>
-            <li onClick={handleModal}>S'inscrire</li>
-            <li>Se connecter</li>
+            {isToken ? (
+              <li className='disconnect' onClick={handleDisconnect}>
+                Deconnexion
+              </li>
+            ) : (
+              <>
+                <li onClick={handleModalSignUp}>S'inscrire</li>
+                <li onClick={handleModalLogin}>Se connecter</li>
+              </>
+            )}
           </ul>
         </div>
       </div>
@@ -68,7 +93,10 @@ const Header = () => {
       <div className='search small-search'>
         <input type='text' placeholder='Rechercher des articles' />
       </div>
-      {isModalOpen && <Signup setIsModalOpen={setIsModalOpen} />}
+      {isModalOpenSignUp && (
+        <Signup setIsModalOpenSignUp={setIsModalOpenSignUp} />
+      )}
+      {isModalOpenLogin && <Login setIsModalOpenLogin={setIsModalOpenLogin} />}
     </div>
   );
 };

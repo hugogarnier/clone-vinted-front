@@ -3,9 +3,7 @@ import { ReactComponent as Close } from "../assets/images/close.svg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-// import Login from "../api/Login";
-
-const Signup = ({ setIsModalOpen }) => {
+const Signup = ({ setIsModalOpenSignUp }) => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -16,7 +14,7 @@ const Signup = ({ setIsModalOpen }) => {
   const [avatar, setAvatar] = useState();
 
   const handleModal = () => {
-    setIsModalOpen(false);
+    setIsModalOpenSignUp(false);
     if (document.body.style.overflow !== "hidden") {
       document.body.style.overflow = "hidden";
     } else {
@@ -31,9 +29,7 @@ const Signup = ({ setIsModalOpen }) => {
     setAvatar(image_as_files);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async () => {
     if (password.length > 4) {
       const bodyForm = new FormData();
       bodyForm.append("username", username);
@@ -52,7 +48,7 @@ const Signup = ({ setIsModalOpen }) => {
           }
         );
         console.log(response.data);
-        setIsModalOpen(false);
+        setIsModalOpenSignUp(false);
         navigate("/");
       } catch (error) {
         console.log(error.message);

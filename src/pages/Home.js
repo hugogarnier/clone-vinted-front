@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import ReactLoading from "react-loading";
 
 import onImage from "../assets/images/onImage.svg";
 
@@ -23,7 +24,9 @@ const Home = () => {
   return (
     <>
       {isLoading ? (
-        <p>Loading ...</p>
+        <div className='loading'>
+          <ReactLoading type='bars' color='#359ca3' height={300} width={100} />
+        </div>
       ) : (
         <>
           <div className='hero-image'>
