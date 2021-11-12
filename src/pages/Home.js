@@ -13,17 +13,25 @@ const Home = ({ productName }) => {
   const [data, setData] = useState();
   const [asc, setAsc] = useState(true);
   const [perPage, setPerPage] = useState(10);
+  const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   // const [values, setValues] = useState([25, 75]);
   const [values, setValues] = useState([MIN, MAX]);
   useEffect(() => {
     const offers = async () => {
-      const offers = await filterOffers(productName, asc, perPage, values);
+      const offers = await filterOffers(
+        productName,
+        asc,
+        perPage,
+        values,
+        page
+      );
       setData(offers);
       setIsLoading(false);
     };
+
     offers();
-  }, [productName, asc, perPage, values]);
+  }, [productName, asc, perPage, values, page]);
 
   return (
     <>
@@ -45,22 +53,28 @@ const Home = ({ productName }) => {
           <div className='filters'>
             <div className='asc-desc'>
               <span>Trier par prix</span>
-              <span onClick={() => setAsc(true)}>
-                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>
-                  <g data-name='9-Arrow Up'>
-                    <path d='M25 0H7a7 7 0 0 0-7 7v18a7 7 0 0 0 7 7h18a7 7 0 0 0 7-7V7a7 7 0 0 0-7-7zm5 25a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5h18a5 5 0 0 1 5 5z' />
-                    <path d='m15.29 5.29-7 7L9.7 13.7 15 8.41V27h2V8.41l5.29 5.29 1.41-1.41-7-7a1 1 0 0 0-1.41 0z' />
-                  </g>
-                </svg>
-              </span>
-              <span onClick={() => setAsc(false)}>
-                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>
-                  <g data-name='10-Arrow Down'>
-                    <path d='M25 0H7a7 7 0 0 0-7 7v18a7 7 0 0 0 7 7h18a7 7 0 0 0 7-7V7a7 7 0 0 0-7-7zm5 25a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5h18a5 5 0 0 1 5 5z' />
-                    <path d='M17 23.59V5h-2v18.59l-5.29-5.3-1.42 1.42 7 7a1 1 0 0 0 1.41 0l7-7-1.41-1.41z' />
-                  </g>
-                </svg>
-              </span>
+              <svg
+                className={asc ? "active" : "inactive"}
+                onClick={() => setAsc(true)}
+                xmlns='http://www.w3.org/2000/svg'
+                viewBox='0 0 32 32'
+              >
+                <g data-name='9-Arrow Up'>
+                  <path d='M25 0H7a7 7 0 0 0-7 7v18a7 7 0 0 0 7 7h18a7 7 0 0 0 7-7V7a7 7 0 0 0-7-7zm5 25a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5h18a5 5 0 0 1 5 5z' />
+                  <path d='m15.29 5.29-7 7L9.7 13.7 15 8.41V27h2V8.41l5.29 5.29 1.41-1.41-7-7a1 1 0 0 0-1.41 0z' />
+                </g>
+              </svg>
+              <svg
+                className={asc ? "inactive" : "active"}
+                onClick={() => setAsc(false)}
+                xmlns='http://www.w3.org/2000/svg'
+                viewBox='0 0 32 32'
+              >
+                <g data-name='10-Arrow Down'>
+                  <path d='M25 0H7a7 7 0 0 0-7 7v18a7 7 0 0 0 7 7h18a7 7 0 0 0 7-7V7a7 7 0 0 0-7-7zm5 25a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5h18a5 5 0 0 1 5 5z' />
+                  <path d='M17 23.59V5h-2v18.59l-5.29-5.3-1.42 1.42 7 7a1 1 0 0 0 1.41 0l7-7-1.41-1.41z' />
+                </g>
+              </svg>
             </div>
             <div className='numberPerPage'>
               <span>Produit par page</span>
@@ -118,6 +132,36 @@ const Home = ({ productName }) => {
                 </Link>
               );
             })}
+          </div>
+
+          <div className='pages'>
+            {page > 1 && (
+              <svg
+                onClick={() => setPage(page - 1)}
+                xmlns='http://www.w3.org/2000/svg'
+                viewBox='0 0 32 32'
+              >
+                <g data-name='12-Arrow Left'>
+                  <path d='M25 0H7a7 7 0 0 0-7 7v18a7 7 0 0 0 7 7h18a7 7 0 0 0 7-7V7a7 7 0 0 0-7-7zm5 25a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5h18a5 5 0 0 1 5 5z' />
+                  <path d='m13.71 9.71-1.42-1.42-7 7a1 1 0 0 0 0 1.41l7 7 1.41-1.41L8.41 17H27v-2H8.41z' />
+                </g>
+              </svg>
+            )}
+
+            <span>{page}</span>
+
+            {Math.sign(Number(data.count) - Number(perPage) * page) === 1 && (
+              <svg
+                onClick={() => setPage(page + 1)}
+                xmlns='http://www.w3.org/2000/svg'
+                viewBox='0 0 32 32'
+              >
+                <g data-name='11-Arrow Right'>
+                  <path d='M25 0H7a7 7 0 0 0-7 7v18a7 7 0 0 0 7 7h18a7 7 0 0 0 7-7V7a7 7 0 0 0-7-7zm5 25a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5h18a5 5 0 0 1 5 5z' />
+                  <path d='m19.71 8.29-1.42 1.42 5.3 5.29H5v2h18.59l-5.29 5.29 1.41 1.41 7-7a1 1 0 0 0 0-1.41z' />
+                </g>
+              </svg>
+            )}
           </div>
         </>
       )}

@@ -30,11 +30,11 @@ const RangePrice = ({ values, setValues, MIN, MAX }) => {
                 ref={props.ref}
                 style={{
                   height: "5px",
-                  width: "100%",
+                  width: "250px",
                   borderRadius: "4px",
                   background: getTrackBackground({
                     values,
-                    colors: ["#ccc", "#548BF4", "#ccc"],
+                    colors: ["#ccc", "#3cb1ba", "#ccc"],
                     min: MIN,
                     max: MAX,
                   }),
@@ -64,7 +64,7 @@ const RangePrice = ({ values, setValues, MIN, MAX }) => {
                 style={{
                   height: "16px",
                   width: "5px",
-                  backgroundColor: isDragged ? "#548BF4" : "#CCC",
+                  backgroundColor: isDragged ? "#3cb1ba" : "#CCC",
                 }}
               />
             </div>
