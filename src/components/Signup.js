@@ -2,24 +2,22 @@ import { useState } from "react";
 import { ReactComponent as Close } from "../assets/images/close.svg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import checkBodyOverflow from "../utils/checkBodyOverflow";
 
-const Signup = ({ setIsModalOpenSignUp }) => {
+const Signup = ({ setIsModalOpenSignUp, setUser }) => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
   const [imagePreview, setImagePreview] = useState();
   const [avatar, setAvatar] = useState();
 
   const handleModal = () => {
     setIsModalOpenSignUp(false);
-    if (document.body.style.overflow !== "hidden") {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "scroll";
-    }
+    checkBodyOverflow();
   };
 
   const handleImagePreview = (e) => {
@@ -29,7 +27,8 @@ const Signup = ({ setIsModalOpenSignUp }) => {
     setAvatar(image_as_files);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (password.length > 4) {
       const bodyForm = new FormData();
       bodyForm.append("username", username);
@@ -38,6 +37,7 @@ const Signup = ({ setIsModalOpenSignUp }) => {
       bodyForm.append("phone", phone);
       bodyForm.append("picture", avatar);
       try {
+        // eslint-disable-next-line
         const response = await axios.post(
           `${process.env.REACT_APP_URI}/user/signup`,
           bodyForm,
@@ -47,10 +47,13 @@ const Signup = ({ setIsModalOpenSignUp }) => {
             },
           }
         );
-        console.log(response.data);
+
+        // console.log(response.data);
+        response.data.token && setUser(response.data.token);
         setIsModalOpenSignUp(false);
         navigate("/");
       } catch (error) {
+        setErrorEmail(error.response.data.message);
         console.log(error.message);
       }
     } else {
@@ -87,6 +90,11 @@ const Signup = ({ setIsModalOpenSignUp }) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        {errorEmail && (
+          <label className='label-error' htmlFor='email'>
+            {errorEmail}
+          </label>
+        )}
         <input
           type='password'
           name='password'

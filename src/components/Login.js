@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Cookies from "js-cookie";
 
 import { ReactComponent as Close } from "../assets/images/close.svg";
+import checkBodyOverflow from "../utils/checkBodyOverflow";
 
-const Login = ({ setIsModalOpenLogin, setIsToken }) => {
+const Login = ({ setIsModalOpenLogin, setUser }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,11 +14,7 @@ const Login = ({ setIsModalOpenLogin, setIsToken }) => {
 
   const handleModal = () => {
     setIsModalOpenLogin(false);
-    if (document.body.style.overflow !== "hidden") {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "scroll";
-    }
+    checkBodyOverflow();
   };
 
   const handleSubmit = async (e) => {
@@ -28,23 +24,18 @@ const Login = ({ setIsModalOpenLogin, setIsToken }) => {
         const response = await axios.post(
           `${process.env.REACT_APP_URI}/user/login`,
           {
-            email: email,
-            password: password,
+            email,
+            password,
           }
         );
         // console.log(response.data.token);
-        Cookies.set("token", response.data.token);
+        response.data.token && setUser(response.data.token);
         setIsModalOpenLogin(false);
-        if (document.body.style.overflow !== "hidden") {
-          document.body.style.overflow = "hidden";
-        } else {
-          document.body.style.overflow = "scroll";
-        }
+        checkBodyOverflow();
         navigate("/");
-        setIsToken(response.data.token);
       } catch (error) {
         console.log(error.message);
-        setError("Mauvais mot de passe/email");
+        error.response.status === 401 && setError("Mauvais mot de passe/email");
       }
     } else {
       setErrorPassword("Le mot de passe doit être supérieur à 4 caractères !");

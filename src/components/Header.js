@@ -1,40 +1,42 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 import { ReactComponent as Open } from "../assets/images/open.svg";
 import { ReactComponent as Close } from "../assets/images/close.svg";
 import Signup from "./Signup";
 import Login from "./Login";
+import checkBodyOverflow from "../utils/checkBodyOverflow";
+// import filterOffers from "../api/filterOffers";
 
-const Header = () => {
+const Header = ({ token, setUser, productName, setProductName }) => {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
   const [isModalOpenSignUp, setIsModalOpenSignUp] = useState(false);
   const [isModalOpenLogin, setIsModalOpenLogin] = useState(false);
-  const [isToken, setIsToken] = useState(Cookies.get("token") || "");
+  // filter products
 
+  // ---------------
+
+  // handle SignIn SignUp Disconnect
   const handleModalSignUp = () => {
     setIsModalOpenSignUp(true);
-    if (document.body.style.overflow !== "hidden") {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "scroll";
-    }
+    checkBodyOverflow();
   };
   const handleModalLogin = () => {
     setIsModalOpenLogin(true);
-    if (document.body.style.overflow !== "hidden") {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "scroll";
-    }
+    checkBodyOverflow();
   };
   const handleDisconnect = () => {
-    Cookies.remove("token");
-    setIsToken("");
+    // Cookies.remove("token");
+    setUser(null);
     navigate("/");
   };
+  // ------------------------------
+  // handleFilters
+  const handleFilters = (e) => {
+    setProductName(e.target.value);
+  };
+  // ------------------------------
 
   return (
     <div className='header-container'>
@@ -55,7 +57,12 @@ const Header = () => {
             </svg>
           </Link>
           <div className='search header-search'>
-            <input type='text' placeholder='Rechercher des articles' />
+            <input
+              type='text'
+              placeholder='Rechercher des articles'
+              value={productName}
+              onChange={handleFilters}
+            />
           </div>
           <Open
             className={isActive ? "close" : "open"}
@@ -70,7 +77,7 @@ const Header = () => {
             <Link to='/sell'>
               <li>Vends maintenant</li>
             </Link>
-            {isToken ? (
+            {token ? (
               <li className='disconnect' onClick={handleDisconnect}>
                 Deconnexion
               </li>
@@ -97,13 +104,10 @@ const Header = () => {
         <input type='text' placeholder='Rechercher des articles' />
       </div>
       {isModalOpenSignUp && (
-        <Signup setIsModalOpenSignUp={setIsModalOpenSignUp} />
+        <Signup setIsModalOpenSignUp={setIsModalOpenSignUp} setUser={setUser} />
       )}
       {isModalOpenLogin && (
-        <Login
-          setIsModalOpenLogin={setIsModalOpenLogin}
-          setIsToken={setIsToken}
-        />
+        <Login setIsModalOpenLogin={setIsModalOpenLogin} setUser={setUser} />
       )}
     </div>
   );
