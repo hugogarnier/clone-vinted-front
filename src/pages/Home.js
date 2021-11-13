@@ -51,6 +51,17 @@ const Home = ({ productName }) => {
             </div>
           </div>
           <div className='filters'>
+            <div
+              className='reset-filters'
+              onClick={() => {
+                setPerPage(10);
+                setValues([MIN, MAX]);
+                setAsc(true);
+                setPage(1);
+              }}
+            >
+              Reset filtre
+            </div>
             <div className='asc-desc'>
               <span>Trier par prix</span>
               <svg
@@ -77,8 +88,11 @@ const Home = ({ productName }) => {
               </svg>
             </div>
             <div className='numberPerPage'>
-              <span>Produit par page</span>
-              <select onChange={(e) => setPerPage(e.target.value)}>
+              <span>Produits par page</span>
+              <select
+                onChange={(e) => setPerPage(e.target.value)}
+                value={perPage}
+              >
                 <option>10</option>
                 <option>15</option>
                 <option>20</option>
@@ -94,45 +108,49 @@ const Home = ({ productName }) => {
               />
             </div>
           </div>
-          <div className='card-wrapper'>
-            {data.offers.map((elem, index) => {
-              return (
-                <Link to={`/product/${elem._id}`} key={index}>
-                  <div className='card-container'>
-                    <div className='card-avatar-username'>
-                      {elem.owner.account.avatar ? (
+          {data.offers.length < 1 ? (
+            <div className='card-wrapper-empty'>No result 😭 !</div>
+          ) : (
+            <div className='card-wrapper'>
+              {data.offers.map((elem, index) => {
+                return (
+                  <Link to={`/product/${elem._id}`} key={index}>
+                    <div className='card-container'>
+                      <div className='card-avatar-username'>
+                        {elem.owner.account.avatar ? (
+                          <img
+                            className='avatar'
+                            src={elem.owner.account.avatar.secure_url}
+                            alt='username avatar'
+                          />
+                        ) : (
+                          <div className='avatar avatar-empty'>
+                            {elem.owner.account.username
+                              .slice(0, 1)
+                              .toUpperCase()}
+                          </div>
+                        )}
+
+                        <span>{elem.owner.account.username}</span>
+                      </div>
+                      <div>
                         <img
-                          className='avatar'
-                          src={elem.owner.account.avatar.secure_url}
-                          alt='username avatar'
+                          src={elem.product_image.picture.result.secure_url}
+                          alt={elem.product_name}
                         />
-                      ) : (
-                        <div className='avatar avatar-empty'>
-                          {elem.owner.account.username
-                            .slice(0, 1)
-                            .toUpperCase()}
+
+                        <div className='card-infos'>
+                          <span>{elem.product_price} €</span>
+                          <span>{elem.product_details[3].TAILLE}</span>
+                          <span>{elem.product_details[2].MARQUE}</span>
                         </div>
-                      )}
-
-                      <span>{elem.owner.account.username}</span>
-                    </div>
-                    <div>
-                      <img
-                        src={elem.product_image.picture.result.secure_url}
-                        alt={elem.product_name}
-                      />
-
-                      <div className='card-infos'>
-                        <span>{elem.product_price} €</span>
-                        <span>{elem.product_details[3].TAILLE}</span>
-                        <span>{elem.product_details[2].MARQUE}</span>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
+                  </Link>
+                );
+              })}
+            </div>
+          )}
 
           <div className='pages'>
             {page > 1 && (

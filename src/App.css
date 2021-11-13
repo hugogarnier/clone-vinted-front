@@ -201,6 +201,21 @@ a {
   margin-top: 130px;
   padding: 10px;
 }
+.reset-filters {
+  width: 120px;
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 10px 10px;
+  border-radius: 5px;
+  color: #3cb1ba;
+  border: 1px solid #3cb1ba;
+  background-color: white;
+}
+.reset-filters:hover {
+  cursor: pointer;
+  color: white;
+  background-color: #2899a1;
+}
 .asc-desc {
   display: flex;
   justify-content: space-around;
@@ -229,6 +244,15 @@ a {
 }
 .numberPerPage > span {
   margin-right: 20px;
+}
+
+.card-wrapper-empty {
+  width: 960px;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px auto;
 }
 
 .card-wrapper {
@@ -635,6 +659,9 @@ footer a:hover {
     justify-content: space-between;
     width: 960px;
     margin: 130px auto 0 auto;
+  }
+  .reset-filters {
+    margin-bottom: 0;
   }
   .asc-desc {
     margin-bottom: 0;
