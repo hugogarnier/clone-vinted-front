@@ -5,7 +5,7 @@ import axios from "axios";
 import { ReactComponent as Close } from "../assets/images/close.svg";
 import checkBodyOverflow from "../utils/checkBodyOverflow";
 
-const Login = ({ setIsModalOpenLogin, setUser }) => {
+const Login = ({ setIsModalOpenLogin, setUser, publishButtonClicked }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +32,7 @@ const Login = ({ setIsModalOpenLogin, setUser }) => {
         response.data.token && setUser(response.data.token);
         setIsModalOpenLogin(false);
         checkBodyOverflow();
-        navigate("/");
+        publishButtonClicked ? navigate("/publish") : navigate("/");
       } catch (error) {
         console.log(error.message);
         error.response.status === 401 && setError("Mauvais mot de passe/email");
@@ -44,7 +44,7 @@ const Login = ({ setIsModalOpenLogin, setUser }) => {
 
   return (
     <div className='signup-container'>
-      <form onSubmit={handleSubmit}>
+      <form className='forms-log' onSubmit={handleSubmit}>
         <Close onClick={handleModal} className='form-close' />
         <h1>Se connecter</h1>
 

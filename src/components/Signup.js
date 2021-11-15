@@ -63,7 +63,7 @@ const Signup = ({ setIsModalOpenSignUp, setUser }) => {
 
   return (
     <div className='signup-container'>
-      <form onSubmit={handleSubmit}>
+      <form className='forms-log' onSubmit={handleSubmit}>
         <Close onClick={handleModal} className='form-close' />
         <h1>S'inscrire</h1>
         <input

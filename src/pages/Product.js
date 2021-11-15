@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import SwiperPictures from "../components/SwiperPictures";
 
 const Product = () => {
   const { id } = useParams();
@@ -31,11 +32,7 @@ const Product = () => {
         <div className='offer-body'>
           <div className='offer-container'>
             <div className='offer-picture'>
-              <img
-                className='offer-picture'
-                src={data.product_image.picture.result.secure_url}
-                alt={data.product_name}
-              />
+              <SwiperPictures data={data} />
             </div>
             <div className='offer-infos'>
               <div>

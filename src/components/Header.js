@@ -6,18 +6,15 @@ import { ReactComponent as Close } from "../assets/images/close.svg";
 import Signup from "./Signup";
 import Login from "./Login";
 import checkBodyOverflow from "../utils/checkBodyOverflow";
-// import filterOffers from "../api/filterOffers";
 
 const Header = ({ token, setUser, productName, setProductName }) => {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
   const [isModalOpenSignUp, setIsModalOpenSignUp] = useState(false);
   const [isModalOpenLogin, setIsModalOpenLogin] = useState(false);
-  // filter products
+  const [publishButtonClicked, setPublishButtonClicked] = useState(false);
 
-  // ---------------
-
-  // handle SignIn SignUp Disconnect
+  // handle SignIn SignUp Disconnect Publish
   const handleModalSignUp = () => {
     setIsModalOpenSignUp(true);
     checkBodyOverflow();
@@ -27,9 +24,19 @@ const Header = ({ token, setUser, productName, setProductName }) => {
     checkBodyOverflow();
   };
   const handleDisconnect = () => {
-    // Cookies.remove("token");
     setUser(null);
     navigate("/");
+  };
+  const handlePublish = () => {
+    if (token) {
+      navigate("/publish");
+      setIsActive(!isActive);
+    } else {
+      setPublishButtonClicked(true);
+      setIsModalOpenLogin(true);
+      setIsActive(!isActive);
+      checkBodyOverflow();
+    }
   };
   // ------------------------------
   // handleFilters
@@ -74,9 +81,8 @@ const Header = ({ token, setUser, productName, setProductName }) => {
           />
 
           <ul className={isActive ? "nav isActive" : "nav isInactive"}>
-            <Link to='/sell'>
-              <li>Vends maintenant</li>
-            </Link>
+            <li onClick={handlePublish}>Vends maintenant</li>
+
             {token ? (
               <li className='disconnect' onClick={handleDisconnect}>
                 Deconnexion
@@ -107,7 +113,11 @@ const Header = ({ token, setUser, productName, setProductName }) => {
         <Signup setIsModalOpenSignUp={setIsModalOpenSignUp} setUser={setUser} />
       )}
       {isModalOpenLogin && (
-        <Login setIsModalOpenLogin={setIsModalOpenLogin} setUser={setUser} />
+        <Login
+          setIsModalOpenLogin={setIsModalOpenLogin}
+          setUser={setUser}
+          publishButtonClicked={publishButtonClicked}
+        />
       )}
     </div>
   );

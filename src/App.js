@@ -6,12 +6,12 @@ import "./App.css";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Product from "./pages/Product";
-import Sell from "./pages/Sell";
+import Publish from "./pages/Publish";
 import Footer from "./components/Footer";
 require("dotenv").config();
 
 function App() {
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(Cookies.get("token") || null);
   const [productName, setProductName] = useState("");
 
   const setUser = (token) => {
@@ -34,7 +34,7 @@ function App() {
       />
       <Routes>
         <Route path='/' exact element={<Home productName={productName} />} />
-        <Route path='/sell' element={<Sell />} />
+        <Route path='/publish' element={<Publish token={token} />} />
         <Route path='/product/:id' element={<Product />} />
       </Routes>
       <Footer />

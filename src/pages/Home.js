@@ -15,7 +15,6 @@ const Home = ({ productName }) => {
   const [perPage, setPerPage] = useState(10);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  // const [values, setValues] = useState([25, 75]);
   const [values, setValues] = useState([MIN, MAX]);
   useEffect(() => {
     const offers = async () => {

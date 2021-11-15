@@ -29,6 +29,9 @@
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
 }
+:root {
+  --swiper-theme-color: #3cb1ba;
+}
 
 body {
   margin: 0 auto;
@@ -38,6 +41,10 @@ a {
   outline: none;
   text-decoration: none;
   color: black;
+}
+button,
+input {
+  outline: none;
 }
 
 /* HEADER */
@@ -97,7 +104,7 @@ a {
   background-color: white;
 }
 
-.nav a:first-child {
+.nav li:first-child {
   width: calc(100% - 40px);
   text-align: center;
   margin: 5px 0;
@@ -106,7 +113,7 @@ a {
   color: white;
   background-color: #3cb1ba;
 }
-.nav a:hover:first-child {
+.nav li:hover:first-child {
   cursor: pointer;
   background-color: #359ca3;
 }
@@ -433,7 +440,7 @@ a {
   justify-content: center;
   align-items: center;
 }
-form {
+.forms-log {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -453,13 +460,13 @@ form {
   height: 50px;
 }
 
-form > h1 {
+.forms-log > h1 {
   font-size: 24px;
   font-weight: 400;
   margin-bottom: 30px;
 }
 
-form > input:not(:last-child) {
+.forms-log > input:not(:last-child) {
   border: none;
   border-bottom: 1px solid #fcced3;
   width: 225px;
@@ -468,7 +475,7 @@ form > input:not(:last-child) {
   outline: none;
 }
 
-form > input:last-child {
+.forms-log > input:last-child {
   background-color: #2cb1ba;
   height: 45px;
   width: 225px;
@@ -480,7 +487,7 @@ form > input:last-child {
   margin-top: 20px;
 }
 
-form > input:last-child:hover {
+.forms-log > input:last-child:hover {
   background-color: #359ca3;
   cursor: pointer;
 }
@@ -495,7 +502,7 @@ form > input:last-child:hover {
   align-items: center;
   margin-bottom: 20px;
 }
-form input[type="checkbox"] {
+.forms-log input[type="checkbox"] {
   transform: scale(2);
 }
 .check-newsletter p {
@@ -529,6 +536,7 @@ form input[type="checkbox"] {
 
 footer {
   /* margin-top: 3.75rem; */
+  font-size: 0.8rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -546,8 +554,184 @@ footer a:hover {
 }
 
 /* ---------------- */
+/* --------PUBLISH-------- */
+
+.publish-main {
+  background-color: #ebedee;
+}
+
+.publish-main h2 {
+  font-size: 24px;
+  font-family: "Maison Neue";
+  padding-top: 40px;
+}
+.form-publish {
+  background-color: none;
+}
+.files {
+  background-color: #fff;
+  padding: 24px;
+  margin: 20px 0;
+  border-radius: 5px;
+  box-shadow: 0 0 2px grey;
+}
+.without-preview {
+  border: 1px dashed #ebedee;
+  border-radius: 3px;
+  height: 200px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.input-default {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.label-file {
+  padding: 20px;
+  margin: 0 5px;
+  border: 2px dashed #3cb1ba;
+}
+
+.label-file:hover {
+  cursor: pointer;
+  color: #3cb1ba;
+  border: 2px dashed #4b4b4b;
+}
+.input-sign {
+  font-size: 3rem;
+}
+.image-preview-publish {
+  width: 65px;
+  height: 80px;
+  object-fit: cover;
+  margin-right: 5px;
+  margin-left: 5px;
+  border-radius: 5px;
+}
+
+.input-file {
+  display: none;
+}
+.text-input-section {
+  background-color: #fff;
+  margin: 20px 0;
+  border-radius: 5px;
+  box-shadow: 0 0 2px grey;
+}
+.text-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px;
+}
+.text-input-section > .text-input:not(:last-child) {
+  height: 25px;
+  border-bottom: 1px solid #ebedee;
+  vertical-align: center;
+}
+.text-input > input::placeholder,
+.text-input > textarea::placeholder,
+.checkbox-section > input::placeholder {
+  color: rgb(168, 168, 168);
+}
+.text-input > h4 {
+  font-weight: 400;
+  margin: 0;
+  vertical-align: baseline;
+}
+.text-input > input {
+  border: none;
+  border-bottom: 1px solid #ebedee;
+  color: #000;
+  font-family: "Maison Neue";
+  font-size: 16px;
+}
+.text-input > textarea {
+  width: 50%;
+  resize: none;
+  border: none;
+  border-bottom: 1px solid #ebedee;
+  outline: none;
+  color: #000;
+  font-family: "Maison Neue";
+  font-size: 16px;
+}
+.checkbox-section {
+  width: 50%;
+}
+.checkbox-section > input {
+  border: none;
+  border-bottom: 1px solid #ebedee;
+  color: #000;
+  font-family: "Maison Neue";
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+.text-input-section label {
+  color: #666;
+}
+
+.checkbox-input {
+  display: flex;
+  justify-content: space-around;
+}
+
+.checkbox-input > span {
+  font-size: 0.6rem;
+  margin-left: 10px;
+}
+.form-submit {
+  display: flex;
+  justify-content: flex-end;
+}
+.form-validation {
+  background-color: #0ab1ba;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  margin: 50px 0;
+}
+.form-validation:hover {
+  background-color: #079aa1;
+  cursor: pointer;
+}
+.form-validation,
+.save-offer {
+  font: inherit;
+  outline: inherit;
+  padding: 12px;
+}
+
+/* ---------------- */
+@media (min-width: 768px) {
+  .text-input > input {
+    width: 50%;
+  }
+  .checkbox-input {
+    display: block;
+  }
+  .checkbox-input > span {
+    font-size: 0.8rem;
+  }
+  .label-file {
+    padding: 40px;
+  }
+  .input-sign {
+    font-size: 4rem;
+  }
+  .image-preview-publish {
+    width: 140px;
+    height: 140px;
+  }
+}
 
 @media (min-width: 960px) {
+  .container {
+    margin: 0;
+  }
   /* HEADER */
   .header-search,
   .menu,
@@ -592,7 +776,7 @@ footer a:hover {
     background-color: white;
   }
 
-  .nav a:first-child {
+  .nav li:first-child {
     width: 150px;
     text-align: center;
     margin: 0 5px;
@@ -709,6 +893,22 @@ footer a:hover {
     margin-top: 10px;
   }
   /* ---------------- */
+
+  /* --------PUBLISH-------- */
+  .publish-container {
+    width: 960px;
+    margin: auto;
+  }
+  .checkbox-input > span {
+    font-size: 1rem;
+  }
+  /* ---------------- */
+
+  /* --------FOOTER-------- */
+  footer {
+    font-size: 1rem;
+  }
+  /* ---------------- */
 }
 
 @media (min-width: 1180px) {
@@ -726,4 +926,20 @@ footer a:hover {
   .offer-container {
     max-width: 1280px;
   }
+  /* --------PUBLISH-------- */
+  .publish-container {
+    width: 1280px;
+  }
+  .label-file {
+    padding: 40px;
+  }
+  .input-sign {
+    font-size: 4rem;
+  }
+  .image-preview-publish {
+    width: 220px;
+    height: 160px;
+  }
+
+  /* ---------------- */
 }

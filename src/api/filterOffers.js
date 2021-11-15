@@ -17,7 +17,6 @@ const filterOffers = async (productName, asc, perPage, values, page) => {
       !asc &&
       (filters = `?title=${productName}&price=price-desc${limit}${prices}${numberPage}`);
     let URI = `${process.env.REACT_APP_URI}/offers${filters}`;
-    console.log(URI);
 
     const response = await axios.get(URI);
     return response.data;
