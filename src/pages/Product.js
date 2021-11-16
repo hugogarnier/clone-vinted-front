@@ -75,13 +75,13 @@ const Product = ({ token }) => {
                 <div className='offer-avatar-username'>
                   <span>{data.offer.owner.account.username}</span>
                 </div>
-                {data.offer.owner._id !== data.user._id && (
+                {data.offer.owner._id !== (data.user._id || null) && (
                   <button className='product-button' onClick={handleBuy}>
                     Acheter
                   </button>
                 )}
 
-                {data.offer.owner._id === data.user._id && (
+                {data.offer.owner._id === (data.user._id || null) && (
                   <button
                     className='product-button update-button'
                     onClick={handleUpdate}
