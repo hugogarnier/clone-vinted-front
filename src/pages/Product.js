@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import SwiperPictures from "../components/SwiperPictures";
+import ReactLoading from "react-loading";
 
 const Product = ({ token }) => {
   const navigate = useNavigate();
@@ -44,7 +45,9 @@ const Product = ({ token }) => {
   return (
     <>
       {isLoading ? (
-        <p>Loading</p>
+        <div className='loading'>
+          <ReactLoading type='bars' color='#359ca3' height={300} width={100} />
+        </div>
       ) : (
         <div className='offer-body'>
           <div className='offer-container'>

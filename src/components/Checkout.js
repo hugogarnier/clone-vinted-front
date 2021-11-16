@@ -3,6 +3,7 @@ import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import ReactLoading from "react-loading";
 
 const Checkout = ({ token }) => {
   const navigate = useNavigate();
@@ -75,7 +76,9 @@ const Checkout = ({ token }) => {
   return (
     <>
       {isLoading ? (
-        <p>Loading</p>
+        <div className='loading'>
+          <ReactLoading type='bars' color='#359ca3' height={300} width={100} />
+        </div>
       ) : (
         <div className='payment-main'>
           {completed && <Toaster />}
