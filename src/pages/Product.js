@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import SwiperPictures from "../components/SwiperPictures";
 
-const Product = () => {
+const Product = ({ token }) => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -12,7 +13,12 @@ const Product = () => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_URI}/offer/${id}`
+          `${process.env.REACT_APP_URI}/offer/${id}`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
         );
         // console.log(response.data);
         setData(response.data);
@@ -22,7 +28,11 @@ const Product = () => {
       }
     };
     fetchProduct();
-  }, [id]);
+  }, [id, token]);
+
+  const handleUpdate = () => {
+    navigate(`/update/${id}`, { state: data.offer });
+  };
 
   return (
     <>
@@ -32,13 +42,15 @@ const Product = () => {
         <div className='offer-body'>
           <div className='offer-container'>
             <div className='offer-picture'>
-              <SwiperPictures data={data} />
+              <SwiperPictures data={data.offer} />
             </div>
             <div className='offer-infos'>
               <div>
-                <span className='offer-price'>{data.product_price} €</span>
+                <span className='offer-price'>
+                  {data.offer.product_price} €
+                </span>
                 <ul className='offer-list'>
-                  {data.product_details.map((elem, index) => {
+                  {data.offer.product_details.map((elem, index) => {
                     const keys = Object.keys(elem);
                     return (
                       <li key={index}>
@@ -51,12 +63,20 @@ const Product = () => {
               </div>
               <div className='divider'></div>
               <div className='offer-content'>
-                <p className='name'>{data.product_name}</p>
-                <p className='description'>{data.product_description}</p>
+                <p className='name'>{data.offer.product_name}</p>
+                <p className='description'>{data.offer.product_description}</p>
                 <div className='offer-avatar-username'>
-                  <span>{data.owner.account.username}</span>
+                  <span>{data.offer.owner.account.username}</span>
                 </div>
-                <button>Acheter</button>
+                <button className='product-button'>Acheter</button>
+                {data.offer.owner._id === data.user._id && (
+                  <button
+                    className='product-button update-button'
+                    onClick={handleUpdate}
+                  >
+                    Mettre à jour
+                  </button>
+                )}
               </div>
             </div>
           </div>

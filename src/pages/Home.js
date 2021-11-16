@@ -7,7 +7,7 @@ import filterOffers from "../api/filterOffers";
 import RangePrice from "../components/RangePrice";
 
 const MIN = 5;
-const MAX = 900;
+const MAX = 10000;
 
 const Home = ({ productName }) => {
   const [data, setData] = useState();
@@ -107,6 +107,7 @@ const Home = ({ productName }) => {
               />
             </div>
           </div>
+
           {data.offers.length < 1 ? (
             <div className='card-wrapper-empty'>No result 😭 !</div>
           ) : (
@@ -150,7 +151,6 @@ const Home = ({ productName }) => {
               })}
             </div>
           )}
-
           <div className='pages'>
             {page > 1 && (
               <svg

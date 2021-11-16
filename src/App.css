@@ -275,7 +275,6 @@ input {
   transition: box-shadow 0.2s;
 }
 .card-container:hover {
-  /* transform: scale(1.1); */
   box-shadow: -4px 5px 6px 4px rgb(46 51 51 / 7%);
   border-radius: 5px;
 }
@@ -414,17 +413,31 @@ input {
   display: flex;
   align-items: center;
 }
-.offer-infos button {
+.product-button {
   color: #fff;
   background: #09b1ba;
   border: 1px solid #09b1ba;
-  border-radius: 4px;
+  border-radius: 5px;
   width: 100%;
   font-size: 16px;
   height: 36px;
   padding: 0 16px;
   line-height: 36px;
   margin-top: 32px;
+}
+.product-button:hover {
+  cursor: pointer;
+  background-color: #2599a1;
+}
+.update-button {
+  color: #09b1ba;
+  background-color: white;
+  border: 1px solid #09b1ba;
+  margin-top: 10px;
+}
+.update-button:hover {
+  cursor: pointer;
+  background-color: #f3f3f3;
 }
 
 /* SINGUP LOGIN */
@@ -588,6 +601,7 @@ footer a:hover {
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
+  position: relative;
 }
 .label-file {
   padding: 20px;
@@ -611,7 +625,29 @@ footer a:hover {
   margin-left: 5px;
   border-radius: 5px;
 }
-
+.button-preview {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: white;
+  border: 3px solid #3cb1ba;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all ease 0.2s;
+}
+.button-preview > span {
+  margin-top: 2px;
+}
+.button-preview:hover {
+  background-color: #3cb1ba;
+  border: 3px solid white;
+  cursor: pointer;
+}
 .input-file {
   display: none;
 }
@@ -705,6 +741,15 @@ footer a:hover {
   padding: 12px;
 }
 
+/* ---------------- */
+/* ------SWIPER---------- */
+.swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+  background: #3cb1ba !important;
+}
+.swiper-button-next,
+.swiper-button-prev {
+  color: #3cb1ba !important;
+}
 /* ---------------- */
 @media (min-width: 768px) {
   .text-input > input {

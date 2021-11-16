@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const InputImage = ({ setPicture }) => {
+const InputImage = ({ picture, setPicture }) => {
   const [imagePreview, setImagePreview] = useState();
   const handleImagePreview = (e) => {
     let image_as_base64 = URL.createObjectURL(e.target.files[0]);
@@ -11,11 +11,29 @@ const InputImage = ({ setPicture }) => {
   return (
     <div className='input-default'>
       {imagePreview ? (
-        <img
-          className='image-preview-publish'
-          src={imagePreview}
-          alt='preview'
-        />
+        <>
+          <img
+            className='image-preview-publish'
+            src={imagePreview}
+            alt='preview'
+          />
+          <div
+            className='button-preview'
+            onClick={() => {
+              setImagePreview(null);
+              setPicture(null);
+            }}
+          >
+            <span>X</span>
+          </div>
+        </>
+      ) : picture ? (
+        <>
+          <img className='image-preview-publish' src={picture} alt='preview' />
+          <div className='button-preview' onClick={() => setPicture(null)}>
+            <span>X</span>
+          </div>
+        </>
       ) : (
         <>
           <label htmlFor='file' className='label-file'>

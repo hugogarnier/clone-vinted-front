@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Product from "./pages/Product";
 import Publish from "./pages/Publish";
 import Footer from "./components/Footer";
+import Update from "./pages/Update";
 require("dotenv").config();
 
 function App() {
@@ -35,7 +36,8 @@ function App() {
       <Routes>
         <Route path='/' exact element={<Home productName={productName} />} />
         <Route path='/publish' element={<Publish token={token} />} />
-        <Route path='/product/:id' element={<Product />} />
+        <Route path='/product/:id' element={<Product token={token} />} />
+        <Route path='/update/:id' element={<Update token={token} />} />
       </Routes>
       <Footer />
     </Router>

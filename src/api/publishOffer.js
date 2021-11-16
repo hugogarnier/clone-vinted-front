@@ -32,6 +32,7 @@ const publishOffer = async (
   bodyForm.append("picture4", picture4);
   try {
     // eslint-disable-next-line
+
     const response = await axios.post(
       `${process.env.REACT_APP_URI}/offer/publish`,
       bodyForm,
