@@ -4,6 +4,16 @@
 
 [Clone Vinted FRONT](https://clone-vinted.hugogarnier.com)
 
+Back-End can be visible here : [Clone Vinted API](https://github.com/hugogarnier/clone-vinted-api)
+
+### Some features
+
+- API calls
+- Filters
+- Publish offer
+- Update offer
+- Buy offer
+
 ![screencapture-clone-vinted-hugogarnier-2021-11-16-16_40_07](https://user-images.githubusercontent.com/80961204/142016802-0640b59a-f8a1-44fe-af08-e92276a1b473.png)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
