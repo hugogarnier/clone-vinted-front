@@ -49,7 +49,7 @@ const Header = ({ token, setUser, productName, setProductName }) => {
     <div className='header-container'>
       <div className='content-header-top'>
         <div className='header-top container'>
-          <Link to='/'>
+          <Link to='/' onClick={() => setProductName(null)}>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               width='83'
