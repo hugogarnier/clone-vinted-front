@@ -183,6 +183,7 @@ input {
 
 .hero-ready span {
   margin: 20px 0;
+  font-size: 1.5rem;
 }
 .hero-ready button {
   width: calc(100% - 40px);
@@ -730,7 +731,8 @@ footer a:hover {
   border-radius: 4px;
   margin: 50px 0;
 }
-.form-validation:hover {
+.form-validation:hover,
+.form-payment:hover {
   background-color: #079aa1;
   cursor: pointer;
 }
@@ -750,6 +752,68 @@ footer a:hover {
 .swiper-button-prev {
   color: #3cb1ba !important;
 }
+/* ---------------- */
+/* ------PAYMENT---------- */
+.payment-main {
+  background-color: #ebedee;
+  height: 100vh;
+}
+.payment-main h2 {
+  font-size: 24px;
+  font-family: "Maison Neue";
+  padding-top: 40px;
+}
+.text-infos {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px 20px;
+}
+.text-input-section > .text-infos:not(:last-child) {
+  border-bottom: 1px solid #ebedee;
+  vertical-align: center;
+}
+.infos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.infos h4 {
+  font-size: 0.9rem;
+  color: rgb(145, 145, 145);
+}
+.text-total {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 20px;
+  border-bottom: 1px solid #ebedee;
+}
+.text-total p {
+  font-size: 0.7rem;
+}
+.StripeElement {
+  margin: 20px;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px 1px rgb(46 51 51 / 7%);
+  padding: 15px 5px;
+}
+
+.form-payment {
+  background-color: #0ab1ba;
+  color: #fff;
+  border: none;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  margin-top: 10px;
+  width: 100%;
+  height: 50px;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
 /* ---------------- */
 @media (min-width: 768px) {
   .text-input > input {
@@ -771,11 +835,21 @@ footer a:hover {
     width: 140px;
     height: 140px;
   }
+  .payment-container {
+    width: 600px;
+    margin: 0 auto;
+  }
+  .text-total p {
+    font-size: 0.9rem;
+  }
 }
 
 @media (min-width: 960px) {
   .container {
     margin: 0;
+  }
+  .payment-container {
+    margin: 0 auto;
   }
   /* HEADER */
   .header-search,

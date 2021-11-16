@@ -9,6 +9,7 @@ import Product from "./pages/Product";
 import Publish from "./pages/Publish";
 import Footer from "./components/Footer";
 import Update from "./pages/Update";
+import Payment from "./pages/Payment";
 require("dotenv").config();
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
         <Route path='/publish' element={<Publish token={token} />} />
         <Route path='/product/:id' element={<Product token={token} />} />
         <Route path='/update/:id' element={<Update token={token} />} />
+        <Route path='/payment/:id' element={<Payment token={token} />} />
       </Routes>
       <Footer />
     </Router>

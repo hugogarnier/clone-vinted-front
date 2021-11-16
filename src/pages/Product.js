@@ -33,6 +33,13 @@ const Product = ({ token }) => {
   const handleUpdate = () => {
     navigate(`/update/${id}`, { state: data.offer });
   };
+  const handleBuy = () => {
+    if (token) {
+      navigate(`/payment/${id}`);
+    } else {
+      navigate("/");
+    }
+  };
 
   return (
     <>
@@ -68,7 +75,12 @@ const Product = ({ token }) => {
                 <div className='offer-avatar-username'>
                   <span>{data.offer.owner.account.username}</span>
                 </div>
-                <button className='product-button'>Acheter</button>
+                {data.offer.owner._id !== data.user._id && (
+                  <button className='product-button' onClick={handleBuy}>
+                    Acheter
+                  </button>
+                )}
+
                 {data.offer.owner._id === data.user._id && (
                   <button
                     className='product-button update-button'
