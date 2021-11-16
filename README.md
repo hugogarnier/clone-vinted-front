@@ -6,6 +6,13 @@
 
 Back-End can be visible here : [Clone Vinted API](https://github.com/hugogarnier/clone-vinted-api)
 
+### USER TEST
+
+- Login : hugo@test.com
+- Password : azerty
+
+You can also create an account
+
 ### Some features
 
 - API calls
