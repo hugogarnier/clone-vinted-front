@@ -2,7 +2,7 @@
 
 ## ACCESS FRONT
 
-[Clone Vinted FRONT](https://clone-vinted.hugogarnier.com)
+[Clone Vinted FRONT](https://vinted.hugogarnier.com)
 
 Back-End can be visible here : [Clone Vinted API](https://github.com/hugogarnier/clone-vinted-api)
 
